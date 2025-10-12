@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: Simple register testbench without the use of assertions/scoreboarding
+// Description: Simple register testbench with scoreboarding and assertions.
 // 
 // Dependencies: 
 // 
@@ -22,12 +22,16 @@
 
 module tb_register;
 
-    parameter int WIDTH = 32;    
+    parameter int WIDTH = 8;
+
     logic                 clk;
     logic                 rst_n;
     logic                 load;
     logic [WIDTH-1:0]     d;
     logic [WIDTH-1:0]     q;
+
+    // Reference model expected value
+    logic [WIDTH-1:0]     q_ref;
 
     Register #(.WIDTH(WIDTH)) dut (
         .clk   (clk),
@@ -40,48 +44,64 @@ module tb_register;
     initial clk = 0;
     always #5 clk = ~clk;
 
+    // Scoreboard behaviour
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            q_ref <= '0;
+        else if (load)
+            q_ref <= d;
+    end
+
+    // Assertions, check that DUT output matches expected output after reset is released
+    property p_register_correct;
+        @(posedge clk) disable iff (!rst_n)
+            q == q_ref;
+    endproperty
+
+    assert property (p_register_correct)
+        else $error("[%0t] Register output mismatch! q=%0h expected=%0h", $time, q, q_ref);
+
+    // Stimulus
     initial begin
-        // Initialize signals
+        // Initialize
         rst_n = 0;
         load  = 0;
         d     = '0;
 
-        // Apply reset
+        // Reset phase
         $display("[%0t] Applying reset...", $time);
-        #12;
-        rst_n = 1;
+        #12 rst_n = 1;
         $display("[%0t] Releasing reset.", $time);
 
-        // Wait a few cycles
+        // Wait for a few cycles
         repeat (2) @(posedge clk);
 
-        // Test 1: Load new value
-        d = 'hA5;  // 0xA5 = 10100101 for WIDTH=8
+        // Test 1: Load value
+        d = 'hA5;
         load = 1;
         @(posedge clk);
         load = 0;
-
-        // Wait a cycle and check output
         @(posedge clk);
-        $display("[%0t] After load, q = 0x%0h (expected 0x%0h)", $time, q, d);
 
         // Test 2: Change input without load
         d = 'h3C;
         @(posedge clk);
-        $display("[%0t] load=0, q should remain 0xA5 -> q = 0x%0h", $time, q);
 
-        // Test 3: Load new value again
+        // Test 3: Load new value
         d = 'hFF;
         load = 1;
         @(posedge clk);
         load = 0;
 
+        // Test 4: Reset in the middle of operation
+        #3 rst_n = 0;
         @(posedge clk);
-        $display("[%0t] After second load, q = 0x%0h (expected 0xFF)", $time, q);
+        rst_n = 1;
+        @(posedge clk);
 
-        // Finish simulation
+        // Wait a bit and finish
         #10;
-        $display("[%0t] Test completed.", $time);
+        $display("[%0t] : PASSED - Test completed with all checks passing.", $time);
         $finish;
     end
 
