@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Register #(
+ module register #(
     parameter int WIDTH = 32    // Number of bits (default = 8)
 )(
     input  logic                 clk,     // Clock
