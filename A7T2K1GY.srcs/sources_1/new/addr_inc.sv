@@ -3,13 +3,13 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 10/12/2025 03:44:55 PM
+// Create Date: 10/14/2025 09:28:28 PM
 // Design Name: 
-// Module Name: hdl_top
+// Module Name: addr_inc
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description: Address incrementer 
 // 
 // Dependencies: 
 // 
@@ -20,12 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module hdl_top(
-    input clk
-    );
-    
-    proc_datapath Datapath (
-        
-    );
-    
+module addr_inc #(
+    parameter int WIDTH    = 32
+)(
+    input logic [WIDTH-1:0]     addr_in,
+    output logic [WIDTH-1:0]    addr_out
+);
+
+
 endmodule

@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 10/12/2025 03:44:55 PM
+// Create Date: 10/14/2025 08:55:12 PM
 // Design Name: 
-// Module Name: hdl_top
+// Module Name: fetch_pipereg
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,12 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module hdl_top(
-    input clk
+module fetch_pipereg(
+
     );
-    
-    proc_datapath Datapath (
-        
-    );
-    
 endmodule

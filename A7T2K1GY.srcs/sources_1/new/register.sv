@@ -21,7 +21,7 @@
 
 
 module register #(
-    parameter int WIDTH = 32;
+    parameter int WIDTH = 32
 )(
     input  logic                 clk,     // Clock
     input  logic                 rst_n,   // Active-low reset

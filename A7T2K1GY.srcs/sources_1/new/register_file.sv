@@ -30,7 +30,9 @@ module register_file #(
     input  logic [$clog2(NUM_REGS)-1:0] write_addr,// Register index to write
     input  logic [$clog2(NUM_REGS)-1:0] read_addr, // Register index to read
     input  logic [WIDTH-1:0]           write_data, // Data to write
-    output logic [WIDTH-1:0]           read_data   // Data output
+    input  logic [WIDTH-1:0]           addr_inc, // Address incrementor
+    output logic [WIDTH-1:0]           read_data,   // Data output
+    output logic [WIDTH-1:0]           pc           // Program counter output
 );
 
     logic [WIDTH-1:0] reg_d   [NUM_REGS];
@@ -45,6 +47,7 @@ module register_file #(
             assign reg_load[i] = (write_en && (write_addr == i));
 
             // Instantiate the parameterized register
+            // Register r15 is the PC
             register #(.WIDTH(WIDTH)) reg_inst (
                 .clk   (clk),
                 .rst_n (rst_n),
@@ -57,5 +60,7 @@ module register_file #(
 
     // Read data output
     assign read_data = reg_q[read_addr];
-
+    // Program counter output
+    assign pc = reg_q[15];
+    
 endmodule

@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 10/12/2025 03:44:55 PM
+// Create Date: 10/14/2025 09:47:02 PM
 // Design Name: 
-// Module Name: hdl_top
+// Module Name: alu
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,12 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module hdl_top(
-    input clk
+module alu(
+
     );
-    
-    proc_datapath Datapath (
-        
-    );
-    
 endmodule
