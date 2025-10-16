@@ -3,13 +3,13 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 10/14/2025 09:47:02 PM
+// Create Date: 10/14/2025 09:52:47 PM
 // Design Name: 
-// Module Name: alu
+// Module Name: inst_decoder
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: Arithmetic logic unit
+// Description: Instruction Decoder
 // 
 // Dependencies: 
 // 
@@ -20,11 +20,13 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module alu #(
-    parameter WIDTH = 32
+module inst_decoder #(
+    parameter WIDTH = 32,
+    parameter REG_WIDTH = 4
 )(
-    input logic [WIDTH-1:0] a,
-    input logic [WIDTH-1:0] b,
-    output logic c
-);
+    input logic [WIDTH-1:0] instruction
+);    
+    logic [REG_WIDTH-1:0] Rn;
+    logic [REG_WIDTH-1:0] Rd;
+    
 endmodule

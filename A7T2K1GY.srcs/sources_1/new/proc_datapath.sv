@@ -30,12 +30,17 @@ module proc_datapath(
     );
     
     // Address Increment
-    addr_inc Address_Inc (
+    addr_inc Address_Incr (
     
     );
     
     // ALU
     alu ALU (
+    
+    );
+    
+    // Instruction Decoder
+    inst_decoder Instruction_Decoder (
     
     );
     
