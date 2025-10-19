@@ -39,6 +39,10 @@ module proc_datapath(
     
     );
     
+    multiplier Multiplier (
+    
+    );
+    
     // Instruction Decoder
     inst_decoder Instruction_Decoder (
     

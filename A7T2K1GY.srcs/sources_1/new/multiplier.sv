@@ -3,13 +3,13 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 10/14/2025 09:47:02 PM
+// Create Date: 10/18/2025 08:51:26 PM
 // Design Name: 
-// Module Name: alu
+// Module Name: multiplier
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: Arithmetic logic unit
+// Description: 32 x 8 Multiplier
 // 
 // Dependencies: 
 // 
@@ -20,14 +20,14 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module alu #(
-    parameter WIDTH = 32
-)(
-    input logic [WIDTH-1:0] a,
-    input logic [WIDTH-1:0] b,
-    output logic c
+module multiplier(
+    input  logic [31:0] a,     // 32-bit multiplicand
+    input  logic [7:0]  b,     // 8-bit multiplier
+    output logic [39:0] product // 40-bit product
 );
 
-    
+    always_comb begin
+        product = a * b;
+    end
 
 endmodule

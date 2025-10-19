@@ -20,13 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module inst_decoder #(
-    parameter WIDTH = 32,
-    parameter REG_WIDTH = 4
-)(
-    input logic [WIDTH-1:0] instruction
+module inst_decoder (
+    input logic [31:0] instruction,
+    output logic [31:0] Rn,
+    output logic [31:0] Rd
 );    
-    logic [REG_WIDTH-1:0] Rn;
-    logic [REG_WIDTH-1:0] Rd;
+    logic [3:0] Rn;
+    logic [3:0] Rd;
     
 endmodule

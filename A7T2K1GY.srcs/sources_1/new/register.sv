@@ -20,14 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module register #(
-    parameter int WIDTH = 32
-)(
+module register (
     input  logic                 clk,     // Clock
     input  logic                 rst_n,   // Active-low reset
-    input  logic [WIDTH-1:0]     d,       // Data input
+    input  logic [31:0]     d,       // Data input
     input  logic                 load,    // Load enable
-    output logic [WIDTH-1:0]     q        // Data output
+    output logic [31:0]     q        // Data output
 );
 
     always_ff @(posedge clk or negedge rst_n) begin

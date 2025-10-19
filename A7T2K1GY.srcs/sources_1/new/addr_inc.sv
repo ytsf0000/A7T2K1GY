@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: Address incrementer 
+// Description: Asynchronous address incrementer 
 // 
 // Dependencies: 
 // 
@@ -23,9 +23,17 @@
 module addr_inc #(
     parameter int WIDTH    = 32
 )(
-    input logic [WIDTH-1:0]     addr_in,
-    output logic [WIDTH-1:0]    addr_out
+    input logic [31:0]     addr_in,
+    input logic                 incr_mode, // 1 -> +2, 0 -> +4
+    output logic [31:0]    addr_out
 );
 
+    always_comb @(*) begin
+        if (incr_mode) begin
+            addr_out = addr_in + 'd2;
+        end else begin
+            addr_out = addr_in + 'd4;
+        end
+    end
 
 endmodule
